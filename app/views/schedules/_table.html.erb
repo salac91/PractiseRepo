@@ -1,0 +1,27 @@
+<h2>Schedules:</h2>
+  <table>
+  	<head>
+	  <tr>
+	  	<td><strong>Action</strong></td>
+	  	<td><strong>Hours</strong></td>
+	  	<td><strong>Date</strong></td>
+	  </tr>
+  	</head>
+  	<body>
+	  <% @company.schedules.each do |schedule| %>
+	  	<tr>
+	        <td><%= schedule.action %></td>
+	        <td>
+	       		<% if schedule.hours == 0 || schedule.hours.nil? %>
+	       			/
+	       		<% else %>
+	        		<%= schedule.hours %>
+	        	<% end %>
+	        </td>
+	       	<td><%= schedule.date %></td>
+	       	<td><%= link_to 'Destroy', company_schedule_path(:id => schedule.id,:company_id => schedule.company_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	    </tr>
+	  <% end %>
+  	</body>
+  </table>
+  <br>

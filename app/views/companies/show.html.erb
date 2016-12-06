@@ -1,0 +1,26 @@
+<script type="text/javascript">	
+	$(function() {
+	  $('a#show_form').click(function(event){
+	    event.preventDefault();
+	    $('div#show_div_form').toggle();
+	  });
+	});  
+</script>
+
+<p id="notice"><%= notice %></p>
+
+  <p>
+	  <h2>Name:</h2>
+	  <strong><%= @company.name %></strong>
+  </p>
+
+<%= render partial: 'schedules/table' %>
+<a href="#" id="show_form">Add Schedule</a>
+<div id="show_div_form" class="hidden">
+	<br>
+	<%= render partial: 'schedules/form' %>
+</div>
+<br><br>
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>
