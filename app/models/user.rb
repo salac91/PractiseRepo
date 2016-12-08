@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  #belongs_to :company
+  belongs_to :company
   has_many :schedules, dependent: :destroy	
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
