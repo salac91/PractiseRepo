@@ -6,22 +6,54 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  scope :is_current_user?, -> (top_user_id, user) {		
-	if top_user_id == user.id
+  scope :is_current_user?, -> (top_user_id, user_id) {		
+	if top_user_id == user_id
 	  true
 	else
 	  false
 	end
   }
 
-  def top_overtime_user(current_user)
+  def top_overtime_user?
 
     isTop = false
 
     top_user_id = User.find_top_overtime_user
 
-    isTop = User.is_current_user?(top_user_id, current_user)
+    isTop = User.is_current_user?(top_user_id, self.id)
 
+  end
+
+  def overused_sick_leave?
+		overused = false
+
+		schedules = Schedule.user_year_schedules(self.id)
+
+		count = User.count_sick_leave(schedules)
+
+		overused = User.is_overused?(count)
+  end
+
+  def self.count_sick_leave(schedules)
+      count = 0
+
+	  schedules.each do |schedule|
+        if Schedule.action_sick_leave?(schedule.action)
+  		  count += 1 
+  		end
+      end
+
+      count
+  end 
+
+  def self.is_overused?(count)
+    overused = false
+
+    if count > 4
+      overused = true 
+    end
+
+      overused
   end
 
   def self.find_top_overtime_user

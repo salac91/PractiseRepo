@@ -9,10 +9,10 @@
 	      </p>
       <% else %>
 	      <p>
-	      	<% if @top_overtime_user %>
+	      	<% if current_user.top_overtime_user? %>
 	      		You have the most overtime hours! <br><br>
 	      	<% end %>
-	      	<% if @sickleave_overused %>
+	      	<% if current_user.overused_sick_leave? %>
 	      		Sick leave overused! <br><br>
 	      	<% end %>
 	        <%= link_to 'My Schedules', user_schedules_path(current_user.id), class: 'btn btn-primary btn-lg' %> <br><br>

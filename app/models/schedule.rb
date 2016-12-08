@@ -10,7 +10,7 @@ class Schedule < ApplicationRecord
 	before_create :update_overtime
 
 	def update_overtime 
-		if action_overtime?(self.action) 
+		if Schedule.action_overtime?(self.action) 
 		  self.hours += self.hours * 0.5 
 		end
 	end
@@ -42,16 +42,6 @@ class Schedule < ApplicationRecord
   		total_overtime = count_total_overtime(schedules)
 	end
 
-	def self.overused_sick_leave?(user)
-		overused = false
-
-		schedules = user_year_schedules(user.id)
-
-		count = count_sick_leave(schedules)
-
-		overused = sick_leave_overused?(count)
-	end
-
 	def self.action_overtime?(action)
       if(action == 'Overtime')
       	true
@@ -68,25 +58,4 @@ class Schedule < ApplicationRecord
       end
 	end
 
-	def self.count_sick_leave(schedules)
-      count = 0
-
-	  schedules.each do |schedule|
-        if action_sick_leave?(schedule.action)
-  		  count += 1 
-  		end
-      end
-
-      count
-	end 
-
-	def self.sick_leave_overused?(count)
-	  overused = false
-
-      if count > 4
-          overused = true 
-      end
-
-      overused
-	end
 end
