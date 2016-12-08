@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
 
-  root to: 'companies#index'
+  root to: 'pages#index'
 
-  resources :companies do
-  	resources :schedules
+  devise_for :users, :controllers => { sign_up: 'registrations' }
+
+  get 'schedules/summary' => 'schedules#summary'
+
+  resources :companies 
+
+  resources :users do
+  	  resources :schedules 
   end
   
 end

@@ -1,5 +1,5 @@
 class Company < ApplicationRecord
-	has_many :schedules, dependent: :destroy
+	#has_many :users, dependent: :destroy
 
 	validates :name, presence: true
 end

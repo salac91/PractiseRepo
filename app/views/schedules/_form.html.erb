@@ -1,41 +1,21 @@
-<script>
-  $(document).ready(function(){
-     var selected = $("#actionSelect").val();
-     if(selected == "DayOff" || selected == "Sick leave"){
-        $("#hoursNf").attr('disabled','disabled');
-     }
-     else{
-        $("#hoursNf").removeAttr('disabled');
-     }
+<%= javascript_include_tag "changeNf" %>
 
-     $("#actionSelect").change(function(){
-        if($(this).val() == "DayOff" || $(this).val() == "Sick leave"){
-          $("#hoursNf").attr('disabled','disabled');
-        }
-        else{
-          $("#hoursNf").removeAttr('disabled');
-        }
-     })
-  });
-</script>
-
-<%= form_for [ @company, @schedule ] do |f| %>
-  <div class="field">
+<%= form_for [ @user, @schedule ] do |f| %>
+  <div class="form-group">
     <%= f.label :action %>
-    <%= f.select :action, options_for_select(Schedule::ACTION_OPTIONS), {} ,:id => "actionSelect" %>
+    <%= f.select :action, options_for_select(Schedule::ACTION_OPTIONS), {} ,:id => "actionSelect", class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :hours %>
-    <%= f.number_field :hours, :value => 0, :step => 0.5, :id => "hoursNf" %>
+    <%= f.number_field :hours, :value => 0, :step => 0.5, :id => "hoursNf", class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :date %>
-    <%= f.date_select :date %>
+    <%= f.date_select :date, class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+   <%= f.submit "Add Schedule", class: 'btn btn-primary' %>
+
 <% end %>

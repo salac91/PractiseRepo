@@ -3,6 +3,6 @@ FactoryGirl.define do
 		action 'Overtime'
 		hours 4
 		date '02-04-2016'	
-		company
+		user
 	end
 end

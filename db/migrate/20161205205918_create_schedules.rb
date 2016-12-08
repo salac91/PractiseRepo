@@ -4,7 +4,7 @@ class CreateSchedules < ActiveRecord::Migration[5.0]
       t.string :action
       t.float :hours
       t.date :date
-      t.integer :company_id
+      t.integer :user_id
 
       t.timestamps
     end

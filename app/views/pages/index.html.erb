@@ -1,0 +1,24 @@
+<% content_for :top_content do %>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Welcome!</h1><br>
+      <% if !user_signed_in? %>
+	      <p>Register to get started.</p>
+	      <p>
+	        <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg' %>
+	      </p>
+      <% else %>
+	      <p>
+	      	<% if @top_overtime_user %>
+	      		You have the most overtime hours! <br><br>
+	      	<% end %>
+	      	<% if @sickleave_overused %>
+	      		Sick leave overused! <br><br>
+	      	<% end %>
+	        <%= link_to 'My Schedules', user_schedules_path(current_user.id), class: 'btn btn-primary btn-lg' %> <br><br>
+	        <%= link_to 'Overtime Summary', schedules_summary_path, class: 'btn btn-primary btn-lg' %>
+	      </p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
