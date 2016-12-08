@@ -6,33 +6,50 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def self.top_overtime_user(currentUser)
-    users = User.all
+  scope :is_current_user?, -> (top_user_id, user) {		
+	if top_user_id == user.id
+	  true
+	else
+	  false
+	end
+  }
 
-    top_overtime = 0
-    top_user_id = 0
+  def top_overtime_user(current_user)
+
     isTop = false
 
+    top_user_id = User.find_top_overtime_user
+
+    isTop = User.is_current_user?(top_user_id, current_user)
+
+  end
+
+  def self.find_top_overtime_user
+  	top_user_id = 0
+  	top_overtime = 0
+
+  	users = User.all
     users.each do |user| 
 
       schedules = Schedule.where(user_id: user.id, action: 'Overtime')
 
-      total_overtime = 0
-
-      schedules.each do |schedule|
-        total_overtime += schedule.hours
-      end
-
-      if total_overtime > top_overtime
-      	top_overtime = total_overtime
-      	top_user_id = user.id
-	  end 
+      total_overtime = Schedule.count_total_overtime(schedules)
+      
+      top_user_id, top_overtime = compare(top_overtime, total_overtime, user)
 
     end 
 
-    isTop = true if top_user_id == currentUser.id
+    top_user_id
+  end
 
-    isTop 
+  def self.compare(top_overtime,total_overtime, user)
+
+    if total_overtime > top_overtime
+      	top_overtime = total_overtime
+      	top_user_id = user.id
+	end 
+
+	return top_user_id, top_overtime
   end
 
 end
