@@ -7,10 +7,10 @@ class Schedule < ApplicationRecord
 
 	ACTION_OPTIONS = ["DayOff","Sick leave","Few hours off","Overtime"]
 
-	before_create :update_overtime
+	before_save :update_overtime
 
 	def update_overtime 
-		if Schedule.action_overtime?(self.action) 
+		if Schedule.overtime?(self.action) 
 		  self.hours += self.hours * 0.5 
 		end
 	end
@@ -23,18 +23,6 @@ class Schedule < ApplicationRecord
 	      Time.now.beginning_of_year, Time.now.end_of_year, user_id)
 	}
 
-	scope :count_total_overtime, -> (schedules) {		
-		total_overtime = 0
-
-		schedules.each do |schedule|
-		  if action_overtime?(schedule.action) 
-  		    total_overtime += schedule.hours 
-  		  end
-  		end
-
-  		total_overtime
-	}
-
 	def self.montly_total_overtime
 
 		schedules = monthly_schedules
@@ -42,20 +30,24 @@ class Schedule < ApplicationRecord
   		total_overtime = count_total_overtime(schedules)
 	end
 
-	def self.action_overtime?(action)
-      if(action == 'Overtime')
-      	true
-      else 
-      	false
-      end
+	def self.count_total_overtime(schedules)
+      total_overtime = 0
+
+	  schedules.each do |schedule|
+	    if overtime?(schedule.action) 
+  		  total_overtime += schedule.hours 
+  		end
+  	  end
+
+      total_overtime
 	end
 
-	def self.action_sick_leave?(action)
-      if(action == 'Sick leave')
-      	true
-      else 
-      	false
-      end
+	def self.overtime?(action)
+      true if(action == 'Overtime')
+	end
+
+	def self.sick_leave?(action)
+      true if(action == 'Sick leave') 
 	end
 
 end

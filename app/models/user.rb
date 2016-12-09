@@ -10,38 +10,32 @@ class User < ApplicationRecord
 
     top_user_id = User.find_top_overtime_user
 
-    isTop = User.is_current_user?(top_user_id, self.id)
+    true if top_user_id == self.id
 
   end
 
   def overused_sick_leave?
-		overused = false
 
 		schedules = Schedule.user_year_schedules(self.id)
 
-		count = User.count_sick_leave(schedules)
+		User.is_overused?(User.count_sick_leave(schedules))
 
-		overused = User.is_overused?(count)
   end
 
   def self.count_sick_leave(schedules)
-      count = 0
+    count = 0
 
 	  schedules.each do |schedule|
-        if Schedule.action_sick_leave?(schedule.action)
+      if Schedule.sick_leave?(schedule.action)
   		  count += 1 
   		end
-      end
+    end
 
-      count
+    count
   end 
 
   def self.is_overused?(count)
-    if count > 4
-      overused = true 
-    else 
-      overused = false
-    end
+    overused = true  if count > 4
   end
 
   def self.find_top_overtime_user
@@ -68,19 +62,11 @@ class User < ApplicationRecord
   	top_overtime_temp = top_overtime
 
     if total_overtime > top_overtime
-      	top_overtime_temp = total_overtime
-      	top_user_id_temp = user.id
-	end 
+      top_overtime_temp = total_overtime
+      top_user_id_temp = user.id
+	  end 
 
-	return top_user_id_temp, top_overtime_temp
-  end
-
-  def self.is_current_user?(top_user_id, user_id) 	
-	if top_user_id == user_id
-	  true
-	else
-	  false
-	end
+	  return top_user_id_temp, top_overtime_temp
   end
 
 end
