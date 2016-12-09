@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
  let(:schedules) { [build_stubbed(:schedule, action: 'Sick leave'), 
  	build_stubbed(:schedule, action: 'Sick leave')] }
 
- describe "public instance methods" do
+ describe "public methods" do
 
     context "executes methods correctly" do
       context "top_overtime_user?" do
