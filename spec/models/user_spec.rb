@@ -41,6 +41,12 @@ RSpec.describe User, type: :model do
      	end
       end
 
+      context "is_overused" do
+        it "is_overused does what it's supposed to..." do
+          expect(User.is_overused?(6)).to eq(true)
+     	end
+      end
+
     end
  end   
 
