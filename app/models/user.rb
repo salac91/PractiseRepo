@@ -55,7 +55,7 @@ class User < ApplicationRecord
 
       total_overtime = Schedule.count_total_overtime(schedules)
       
-      top_user_id, top_overtime = self.compare(top_overtime, 
+      top_user_id, top_overtime = self.compare_overtime(top_overtime, 
       	total_overtime, top_user_id, user)
 
     end 
@@ -63,7 +63,7 @@ class User < ApplicationRecord
     top_user_id
   end
 
-  def self.compare(top_overtime,total_overtime, top_user_id, user)
+  def self.compare_overtime(top_overtime,total_overtime, top_user_id, user)
     top_user_id_temp = top_user_id
   	top_overtime_temp = top_overtime
 
