@@ -47,13 +47,11 @@ class User < ApplicationRecord
   end 
 
   def self.is_overused?(count)
-    overused = false
-
     if count > 4
       overused = true 
+    else 
+      overused = false
     end
-
-      overused
   end
 
   def self.find_top_overtime_user

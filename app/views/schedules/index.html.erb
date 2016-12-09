@@ -17,11 +17,7 @@
         <tr>
           <td><%= schedule.action %></td>
           <td>
-              <% if schedule.hours == 0 || schedule.hours.nil? %>
-                /
-              <% else %>
-                <%= schedule.hours %>
-              <% end %>
+              <%= show_hours(schedule.hours) %>
           </td>
           <td><%= schedule.date %></td>
         </tr>
