@@ -51,7 +51,7 @@ class Schedule < ApplicationRecord
 	end
 
 	def self.action_sick_leave?(action)
-      if(action == 'Overtime')
+      if(action == 'Sick leave')
       	true
       else 
       	false

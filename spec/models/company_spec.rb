@@ -11,6 +11,6 @@ RSpec.describe Company, type: :model do
   end
 
   #check association with shoulda 
-  it { should have_many(:schedules) }
+  it { should have_many(:users) }
 
 end

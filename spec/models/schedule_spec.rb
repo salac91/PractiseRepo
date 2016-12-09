@@ -18,11 +18,11 @@ RSpec.describe Schedule, type: :model do
     expect(build_stubbed(:schedule, date: "032-02-2015")).to_not be_valid
   end
 
-  it 'schedule with no company is invalid' do
-    expect(build_stubbed(:schedule, company_id: nil)).to_not be_valid
+  it 'schedule with no user is invalid' do
+    expect(build_stubbed(:schedule, user_id: nil)).to_not be_valid
   end
 
   #check association with shoulda 
-  it { should belong_to(:company) }
+  it { should belong_to(:user) }
 
 end
