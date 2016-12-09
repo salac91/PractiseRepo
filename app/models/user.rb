@@ -65,18 +65,6 @@ class User < ApplicationRecord
     top_user_id
   end
 
-  def self.compare(top_overtime,total_overtime, user)
-    top_user_id_temp = user.id
-  	top_overtime_temp = top_overtime
-
-    if total_overtime > top_overtime
-      	top_overtime_temp = total_overtime
-      	top_user_id_temp = user.id
-	end 
-
-	return top_user_id_temp, top_overtime_temp
-  end
-
   def self.is_current_user?(top_user_id, user_id) 	
 	if top_user_id == user_id
 	  true
