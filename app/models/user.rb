@@ -55,14 +55,24 @@ class User < ApplicationRecord
 
       total_overtime = Schedule.count_total_overtime(schedules)
       
-      if total_overtime > top_overtime
-      	top_overtime = total_overtime
-      	top_user_id = user.id
-	  end 
+      top_user_id, top_overtime = self.compare(top_overtime, 
+      	total_overtime, top_user_id, user)
 
     end 
 
     top_user_id
+  end
+
+  def self.compare(top_overtime,total_overtime, top_user_id, user)
+    top_user_id_temp = top_user_id
+  	top_overtime_temp = top_overtime
+
+    if total_overtime > top_overtime
+      	top_overtime_temp = total_overtime
+      	top_user_id_temp = user.id
+	end 
+
+	return top_user_id_temp, top_overtime_temp
   end
 
   def self.is_current_user?(top_user_id, user_id) 	
