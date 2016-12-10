@@ -9,7 +9,7 @@
 	      </p>
       <% else %>
 	      <p>
-	      	<% if current_user.top_overtime_user? %>
+	      	<% if current_user.top_overtime? %>
 	      		You have the most overtime hours! <br><br>
 	      	<% end %>
 	      	<% if current_user.overused_sick_leave? %>

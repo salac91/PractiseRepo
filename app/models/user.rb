@@ -21,7 +21,7 @@ class User < ApplicationRecord
      .first
   }
 
-  def top_overtime_user?
+  def top_overtime?
     User.top_overtime.id == self.id
   end
 
