@@ -31,9 +31,9 @@ let(:schedules) { [build_stubbed(:schedule, hours: 2),
  describe "public methods" do
 
     context "executes methods correctly" do 
-      context "count_total_overtime" do
-        it "count_total_overtime does what it's supposed to..." do
-          expect(Schedule.count_total_overtime(schedules)).to eq(8)
+      context "monthly_total_overtime" do
+        it "monthly_total_overtime does what it's supposed to..." do
+          expect(Schedule.monthly_total_overtime).to eq(8)
      	end
       end
     end
