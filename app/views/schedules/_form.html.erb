@@ -3,7 +3,7 @@
 <%= form_for [ @user, @schedule ] do |f| %>
   <div class="form-group">
     <%= f.label :action %>
-    <%= f.select :action, options_for_select(Schedule::ACTION_OPTIONS), {} ,:id => "actionSelect", class: 'form-control' %>
+    <%= f.select :action, options_for_select(SchedulesHelper::ACTION_OPTIONS), {} ,:id => "actionSelect", class: 'form-control' %>
   </div>
 
   <div class="form-group">

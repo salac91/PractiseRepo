@@ -40,7 +40,7 @@ class SchedulesController < ApplicationController
   end
 
   def summary 
-    @total_overtime = Schedule.montly_total_overtime
+    @total_overtime = Schedule.monthly_total_overtime
   end 
 
   private
