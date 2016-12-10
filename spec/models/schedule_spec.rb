@@ -25,15 +25,14 @@ RSpec.describe Schedule, type: :model do
   #check association with shoulda 
   it { should belong_to(:user) }
 
-let(:schedules) { [build_stubbed(:schedule, hours: 2), 
- 	build_stubbed(:schedule, hours: 6)] }
 
  describe "public methods" do
-
-    context "executes methods correctly" do 
+    let!(:schedule) { create(:schedule, hours: 2) }        
+    context "executes method correctly" do 
       context "monthly_total_overtime" do
         it "monthly_total_overtime does what it's supposed to..." do
-          expect(Schedule.monthly_total_overtime).to eq(8)
+          expect(Schedule.monthly_total_overtime).to eq(2)
+          expect(Schedule.monthly_total_overtime).to_not eq(6)
      	end
       end
     end

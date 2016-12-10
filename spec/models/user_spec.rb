@@ -17,38 +17,23 @@ RSpec.describe User, type: :model do
   #check association with shoulda 
   it { should belong_to(:company) }
 
- let(:schedules) { [build_stubbed(:schedule, action: 'Sick leave'), 
- 	build_stubbed(:schedule, action: 'Sick leave')] }
-
  describe "public methods" do
-
+ 	let!(:user) { create(:user) }
+ 	let!(:schedule) { create(:schedule, hours: 2) }  
     context "executes methods correctly" do
-      context "top_overtime_user?" do
-        it "top_overtime_user does what it's supposed to..." do
-          expect(build_stubbed(:user).top_overtime_user?).to eq(false || nil) 
+      context "top_overtime?" do
+        it "top_overtime? does what it's supposed to..." do
+          expect(user.top_overtime?).to eq(true) 
      	end
       end
 
       context "overused_sick_leave?" do
-        it "overused_sick_leave does what it's supposed to..." do
-          expect(build_stubbed(:user).overused_sick_leave?).to eq(false || nil)
-     	end
-      end
-
-      context "count_sick_leave" do
-        it "count_sick_leave does what it's supposed to..." do
-          expect(User.count_sick_leave(schedules)).to eq(2)
-     	end
-      end
-
-      context "is_overused" do
-        it "is_overused does what it's supposed to..." do
-          expect(User.is_overused?(6)).to eq(true)
+        it "overused_sick_leave? does what it's supposed to..." do
+          expect(user.overused_sick_leave?).to eq(false)
      	end
       end
 
     end
  end   
-
 
 end
