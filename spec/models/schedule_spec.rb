@@ -27,11 +27,15 @@ RSpec.describe Schedule, type: :model do
 
 
  describe "public methods" do
-    let!(:schedule) { create(:schedule, hours: 2) }        
+    let!(:schedule) { create(:schedule, hours: 2) }
+    let!(:schedule2) { 
+    	create(:schedule, hours: 3, 
+    	user: create(:user, email: 'pera@gmail.com') ) 
+    }         
     context "executes method correctly" do 
       context "monthly_total_overtime" do
         it "monthly_total_overtime does what it's supposed to..." do
-          expect(Schedule.monthly_total_overtime).to eq(2)
+          expect(Schedule.monthly_total_overtime).to eq(5)
           expect(Schedule.monthly_total_overtime).to_not eq(6)
      	end
       end
