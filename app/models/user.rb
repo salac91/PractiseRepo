@@ -20,7 +20,7 @@ class User < ApplicationRecord
   }
 
   def top_overtime?
-    User.top_overtime.id == self.id
+     user = User.top_overtime.id == self.id unless user.nil?
   end
 
   def overused_sick_leave?
