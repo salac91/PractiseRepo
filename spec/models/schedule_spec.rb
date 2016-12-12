@@ -35,7 +35,7 @@ RSpec.describe Schedule, type: :model do
     context "executes method correctly" do 
       context "monthly_total_overtime" do
         it "monthly_total_overtime does what it's supposed to..." do
-          expect(Schedule.monthly_total_overtime).to eq(5)
+          expect(Schedule.monthly_total_overtime).to eq(7.5)
           expect(Schedule.monthly_total_overtime).to_not eq(6)
      	end
       end
