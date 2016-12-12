@@ -6,15 +6,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   scope :year_sick_leave, -> (user_id) { 
-    Schedule.where("created_at > ? AND created_at < ? AND user_id = ? 
+    joins(:schedules)
+   .where("schedules.created_at > ? AND schedules.created_at < ? AND user_id = ? 
       AND action = 'Sick leave'", Time.now.beginning_of_year, Time.now.end_of_year, user_id)
-     .count
+   .count
   }
 
   scope :top_overtime, -> { 
       joins(:schedules)
      .select("users.*, count(schedules.action == 'Overtime') as ocount")
-     .group("users.id")
      .order("ocount DESC")
      .first
   }

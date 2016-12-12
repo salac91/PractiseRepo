@@ -19,26 +19,26 @@ RSpec.describe User, type: :model do
 
  describe "public methods" do
  	let!(:user) { create(:user) }
- 	let!(:user2) { create(:user, email: 'pera@gmail.com') }
- 	let!(:schedule) { 
-    	create(:schedule, hours: 20, 
-    	user: user ) 
-    }    
+ 	let!(:user2) { create(:user, email: 'pera@gmail.com') }  
 
     let!(:schedules) { create_list(:schedule, 10, 
     	action: 'Sick leave', hours: 0, user: user2) }
 
     context "executes methods correctly" do
       context "top_overtime?" do
-        it "top_overtime? does what it's supposed to..." do
-          expect(user.top_overtime?).to eq(true) 
-          expect(user2.top_overtime?).to eq(false) 
+        it "when is top" do
+          expect(user2.top_overtime?).to eq(true) 
+     	end
+     	it "when is not top" do
+          expect(user.top_overtime?).to eq(false) 
      	end
       end
 
       context "overused_sick_leave?" do
-        it "overused_sick_leave? does what it's supposed to..." do    
+        it "when is overused" do    
           expect(user2.overused_sick_leave?).to eq(true) 
+     	end
+     	it "when is not overused" do    
           expect(user.overused_sick_leave?).to eq(false)
      	end
       end

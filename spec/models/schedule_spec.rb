@@ -26,7 +26,7 @@ RSpec.describe Schedule, type: :model do
   it { should belong_to(:user) }
 
 
- describe "public methods" do
+ describe "public method" do
     let!(:schedule) { create(:schedule, hours: 2) }
     let!(:schedule2) { 
     	create(:schedule, hours: 3, 
@@ -34,8 +34,10 @@ RSpec.describe Schedule, type: :model do
     }         
     context "executes method correctly" do 
       context "monthly_total_overtime" do
-        it "monthly_total_overtime does what it's supposed to..." do
+        it "when is equal" do
           expect(Schedule.monthly_total_overtime).to eq(7.5)
+     	end
+     	it "when is not equal" do
           expect(Schedule.monthly_total_overtime).to_not eq(6)
      	end
       end
