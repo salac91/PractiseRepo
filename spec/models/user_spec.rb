@@ -19,18 +19,21 @@ RSpec.describe User, type: :model do
 
  describe "public methods" do
  	let!(:user) { create(:user) }
- 	let!(:user2) { create(:user, email: 'pera@gmail.com') }  
+ 	let!(:user2) { create(:user, email: 'goran@gmail.com') } 
 
-    let!(:schedules) { create_list(:schedule, 10, 
-    	action: 'Sick leave', hours: 0, user: user2) }
-
+ 	before {
+ 		create(:schedule, action: 'Overtime', 
+ 			hours: 100, user: user) 
+    	create_list(:schedule, 10, 
+    	  action: 'Sick leave', hours: 0, user: user2) 
+	}
     context "executes methods correctly" do
       context "top_overtime?" do
         it "when is top" do
-          expect(user2.top_overtime?).to eq(true) 
+          expect(user.top_overtime?).to eq(true) 
      	end
      	it "when is not top" do
-          expect(user.top_overtime?).to eq(false) 
+          expect(user2.top_overtime?).to eq(false) 
      	end
       end
 

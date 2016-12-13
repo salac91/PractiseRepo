@@ -27,10 +27,10 @@ RSpec.describe Schedule, type: :model do
 
 
  describe "public method" do
-    let!(:schedule) { create(:schedule, hours: 2) }
-    let!(:schedule2) { 
+    before  { 
+    	create(:schedule, hours: 2) 
     	create(:schedule, hours: 3, 
-    	user: create(:user, email: 'pera@gmail.com') ) 
+      	  user: create(:user, email: 'pera@gmail.com') ) 
     }         
     context "executes method correctly" do 
       context "monthly_total_overtime" do
